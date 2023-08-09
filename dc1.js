@@ -1,7 +1,7 @@
 document.getElementById('btn1').addEventListener('click', async () => {
     // ディレクトリ選択ダイアログを表示して
     // FileSystemDirectoryHandle オブジェクトを取得
-    const dh = await window.showDirectoryPicker();
+    const root = await window.showDirectoryPicker();
    
     // 開いたディレクトリ内のファイルとディレクトリをコンソールに出力
     for await (const handle of root.values()) {
