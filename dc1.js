@@ -1,12 +1,15 @@
 async function readAllFilesInDirectory(directoryHandle) {
   for await (const entry of directoryHandle.values()) {
-    if (entry.isFile) {
-      let file = await entry.getFile();
-      let content = await file.text();
+    if (entry.kind === "file") {
+      let file = await entry.getFileHandle(entry.name);
+      let content = await file.getFile()
       console.log(`File: ${entry.name}\nContent: ${content}\n`);
     } else if (entry.isDirectory) {
       let subDirectoryHandle = await entry.getDirectory();
       await readAllFilesInDirectory(subDirectoryHandle);
+    }
+    else {
+      console.log("else")
     }
   }
 }
